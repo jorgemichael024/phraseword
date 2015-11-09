@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.mjjm.phraseword" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- VARIATION ONE -->
+        <activity
+            android:name=".variation1.Variation1"
+            android:label="@string/title_activity_variation1"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mjjm.phraseword.MainActivity" />
+        </activity>
+        <activity
+            android:name=".variation1.VariationOneTestScreenActivity"
+            android:label="@string/title_activity_variation_one_test_screen"
+            android:parentActivityName=".variation1.Variation1" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mjjm.phraseword.variation1.Variation1" />
+        </activity>
+        <!-- VARIATION TWO -->
+        <activity
+            android:name=".variation2.Variation2"
+            android:label="@string/title_activity_variation2"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mjjm.phraseword.MainActivity" />
+        </activity>
+        <activity
+            android:name=".variation2.VariationTwoTestScreenActivity"
+            android:label="@string/title_activity_variation_two_test_screen"
+            android:parentActivityName=".variation2.Variation2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mjjm.phraseword.variation2.Variation2" />
+        </activity>
+
+        <!-- UNLOCKED SCREEN -->
+        <activity
+            android:name=".UnlockedScreenActivity"
+            android:label="@string/title_activity_unlocked_screen"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+    </application>
+
+</manifest>

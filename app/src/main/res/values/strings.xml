@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PhraseWord</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_variation1">Variation One Input Screen</string>
+    <string name="title_activity_unlocked_screen">UnlockedScreenActivity</string>
+    <string name="title_activity_variation_one_test_screen">Variation One Test Screen</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_variation2">Variation Two Input Screen</string>
+    <string name="title_activity_variation_two_test_screen">Variation Two Test Screen</string>
+</resources>
