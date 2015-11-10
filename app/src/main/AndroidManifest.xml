@@ -50,7 +50,40 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.mjjm.phraseword.variation2.Variation2" />
         </activity>
-
+        <!-- VARIATION THREE -->
+        <activity
+            android:name=".variation3.Variation3"
+            android:label="@string/title_activity_variation3"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mjjm.phraseword.MainActivity" />
+        </activity>
+        <activity
+            android:name=".variation3.VariationThreeTestScreen"
+            android:label="@string/title_activity_variation_three_test_screen"
+            android:parentActivityName=".variation3.Variation3" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mjjm.phraseword.variation3.Variation3" />
+        </activity>
+        <!-- VARIATION FOUR -->
+        <activity
+            android:name=".variation4.Variation4"
+            android:label="@string/title_activity_variation4"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mjjm.phraseword.MainActivity" />
+        </activity>
+        <activity
+            android:name=".variation4.VariationFourTestScreenActivity"
+            android:label="@string/title_activity_variation_four_test_screen"
+            android:parentActivityName=".variation4.Variation4" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.mjjm.phraseword.variation4.Variation4" />
+        </activity>
         <!-- UNLOCKED SCREEN -->
         <activity
             android:name=".UnlockedScreenActivity"

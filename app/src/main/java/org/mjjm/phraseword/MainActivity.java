@@ -11,6 +11,14 @@ import android.widget.Button;
 
 import org.mjjm.phraseword.variation1.Variation1;
 import org.mjjm.phraseword.variation2.Variation2;
+import org.mjjm.phraseword.variation3.Variation3;
+import org.mjjm.phraseword.variation4.Variation4;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         var4_button = (Button) findViewById(R.id.var4_button);
         var4_button.setOnClickListener(onClickListener);
 
-
     }
 
     public View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -49,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
                     goToScreen(Variation2.class);
                     break;
                 case R.id.var3_button:
+                    goToScreen(Variation3.class);
                     break;
                 case R.id.var4_button:
+                    goToScreen(Variation4.class);
                     break;
             }
         }
@@ -58,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToScreen(Class<?> clazz) {
         Intent intent = new Intent(context, clazz);
+
         startActivity(intent);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

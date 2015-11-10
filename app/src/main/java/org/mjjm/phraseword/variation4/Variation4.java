@@ -1,4 +1,4 @@
-package org.mjjm.phraseword.variation2;
+package org.mjjm.phraseword.variation4;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.mjjm.phraseword.MainActivity;
 import org.mjjm.phraseword.R;
 import org.mjjm.phraseword.Utilities;
-import org.mjjm.phraseword.variation1.VariationOneTestScreenActivity;
+import org.mjjm.phraseword.variation2.VariationTwoTestScreenActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,13 +22,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Variation2 extends AppCompatActivity {
+public class Variation4 extends AppCompatActivity {
 
+    public final static String EXTRA_MESSAGE_PHRASE = "org.mjjm.phraseword.variation4.PHRASE";
+    public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation4.PASS";
 
-    public final static String EXTRA_MESSAGE_WORDS = "org.mjjm.phraseword.variation2.WORDS";
-    public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation2.PASS";
-
-    private EditText editNumcode;
+    private EditText editCharCode;
     private Button testBtn;
     private Context context;
     private String[] wordArr;
@@ -37,10 +35,10 @@ public class Variation2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_variation2);
+        setContentView(R.layout.activity_variation4);
 
         context = this.getApplicationContext();
-        editNumcode = (EditText) findViewById(R.id.editNumCode);
+        editCharCode = (EditText) findViewById(R.id.editCharCode);
         testBtn = (Button) findViewById(R.id.testBtn);
 
         wordArr = initWords("wordlist.txt");
@@ -48,25 +46,18 @@ public class Variation2 extends AppCompatActivity {
         testBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, VariationTwoTestScreenActivity.class);
+                Intent intent = new Intent(context, VariationFourTestScreenActivity.class);
 
-                String numCode = editNumcode.getText().toString();
-                if(validateNumCode(numCode)) {
+                String charCode = editCharCode.getText().toString();
+                if (validateCharChode(charCode)) {
 
-                    String randWords = buildWords(numCode.length(), wordArr);
+                    String correctPass = generateCorrectPass(charCode.length());
 
-                    if(randWords.equals("")) {
-                        showMessage("Cannot generate random words. Please try again.");
-                    } else {
+                    String phrase = buildWords(wordArr, correctPass, charCode);
 
-                        List<String> words = Arrays.asList(randWords.split(" "));
-
-                        String correctPass = generateCorrectPass(words, numCode);
-
-                        intent.putExtra(EXTRA_MESSAGE_WORDS, randWords);
-                        intent.putExtra(EXTRA_MESSAGE_PASS, correctPass);
-                        startActivity(intent);
-                    }
+                    intent.putExtra(EXTRA_MESSAGE_PHRASE, phrase);
+                    intent.putExtra(EXTRA_MESSAGE_PASS, correctPass);
+                    startActivity(intent);
 
                 }
             }
@@ -74,27 +65,25 @@ public class Variation2 extends AppCompatActivity {
 
     }
 
-
     /**
      * validates the user input
      * @param s
      * @return boolean
      */
-    private boolean validateNumCode(String s) {
+    private boolean validateCharChode(String s) {
 
         if(s == null || s.equals("")) {
-            showMessage("Your number code must not be null or empty string.");
+            showMessage("Your character code must not be null or empty string.");
             return false;
         } else {
             if(s.length() < 4 || s.length() > 6) {
-                showMessage("Your number code must be composed of 4 to 6 digits.");
+                showMessage("Your character code must be composed of 4 to 6 digits.");
                 return false;
             }
 
-            try {
-                int code = Integer.parseInt(s);
-            } catch (NumberFormatException e) {
-                showMessage("Your code must be composed of numbers only.");
+
+            if(s.matches("[-+]?\\d*\\.?\\d+")) {
+                showMessage("Your character must be composed of letters only.");
                 return false;
             }
 
@@ -103,31 +92,39 @@ public class Variation2 extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * generates random phrase
-     * @param numOfWords
-     * @return
-     */
-    private String buildWords(int numOfWords, String[] words) {
+    private String buildWords(String[] words, String correctPass, String charCode) {
 
-        String randWords = "";
+        StringBuilder sb = new StringBuilder();
 
         int MIN = 0;
         int MAX = words.length;
 
         if(MAX > 0) {
 
-            for(int i = 0; i < numOfWords; i++) {
-                randWords += words[Utilities.generateRandomInt(MIN, MAX) - 1];
+            int counter = 0;
+            while(counter < correctPass.length()) {
+                String randomWord = words[Utilities.generateRandomInt(MIN, MAX) - 1];
+                String ind = "" + correctPass.charAt(counter);
+                int index = Integer.parseInt(ind) - 1;
 
-                if(i != numOfWords - 1) {
-                    randWords += " ";
+                if(index < randomWord.length()) {
+                    if (randomWord.charAt(index) == charCode.charAt(counter) && countOccurrence(randomWord, ""+charCode.charAt(counter)) == 1) {
+                        sb.append(randomWord);
+                        sb.append(" ");
+                        counter++;
+                    }
                 }
+
             }
         }
 
 
-        return randWords;
+        return sb.toString();
+    }
+
+    private int countOccurrence(String s, String c) {
+
+        return (s.length() - s.replace(c, "").length());
     }
 
 
@@ -159,23 +156,18 @@ public class Variation2 extends AppCompatActivity {
         return sb.toString().split("#");
     }
 
-    /**
-     * generates the correct pass from list of words and the input code
-     * @param words
-     * @param inputCode
-     * @return string
-     */
-    private String generateCorrectPass(List<String> words, String inputCode) {
+    private String generateCorrectPass(int length) {
 
-        String correctPass = "";
+        StringBuilder sb = new StringBuilder();
+        int MIN = 0;
+        int MAX = 5;
 
-        for(int i = 0; i < words.size(); i++) {
-            String ind = "" + inputCode.charAt(i);
-            int index = Integer.parseInt(ind);
-            correctPass += words.get(i).charAt(index - 1); //subtracted 1 because string's index starts from zero
+        for(int i = 0; i < length; i++) {
+            sb.append(Utilities.generateRandomInt(MIN, MAX));
         }
 
-        return correctPass;
+
+        return sb.toString();
     }
 
     /**
@@ -187,10 +179,11 @@ public class Variation2 extends AppCompatActivity {
         msg.show();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_variation2, menu);
+        getMenuInflater().inflate(R.menu.menu_variation4, menu);
         return true;
     }
 

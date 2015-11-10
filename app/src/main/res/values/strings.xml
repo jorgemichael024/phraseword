@@ -9,4 +9,9 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_variation2">Variation Two Input Screen</string>
     <string name="title_activity_variation_two_test_screen">Variation Two Test Screen</string>
+    <string name="title_activity_variation3">Variation Three Input Screen</string>
+    <string name="title_activity_variation_three_test_screen">Variation Three Test Screen</string>
+    <string name="title_activity_variation4">Variation Four Input Screen</string>
+    <string name="title_activity_variation_four_test_screen">Variation Four Test Screen
+    </string>
 </resources>

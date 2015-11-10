@@ -68,12 +68,12 @@ public class Variation1 extends AppCompatActivity {
     private boolean validatePhrase(String s) {
 
         if(s == null || s.equals("")) {
-            showMessage("Your phrase must no be null or empty string.");
+            showMessage("Your phrase must not be null or empty string.");
             return false;
         } else {
             List<String> words = Arrays.asList(s.split(" "));
 
-            if(words.size() < 4) {
+            if(words.size() < 4 || words.size() > 6) {
                 showMessage("Your phrase must be composed of 4 to 6 words.");
                 return false;
             }
