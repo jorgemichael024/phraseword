@@ -56,7 +56,7 @@ public class Variation2 extends AppCompatActivity {
                     String randWords = buildWords(numCode.length(), wordArr);
 
                     if(randWords.equals("")) {
-                        showMessage("Cannot generate random words. Please try again.");
+                        Utilities.showMessage("Cannot generate random words. Please try again.", getBaseContext());
                     } else {
 
                         List<String> words = Arrays.asList(randWords.split(" "));
@@ -83,18 +83,18 @@ public class Variation2 extends AppCompatActivity {
     private boolean validateNumCode(String s) {
 
         if(s == null || s.equals("")) {
-            showMessage("Your number code must not be null or empty string.");
+            Utilities.showMessage("Your number code must not be null or empty string.", getBaseContext());
             return false;
         } else {
             if(s.length() < 4 || s.length() > 6) {
-                showMessage("Your number code must be composed of 4 to 6 digits.");
+                Utilities.showMessage("Your number code must be composed of 4 to 6 digits.", getBaseContext());
                 return false;
             }
 
             try {
                 int code = Integer.parseInt(s);
             } catch (NumberFormatException e) {
-                showMessage("Your code must be composed of numbers only.");
+                Utilities.showMessage("Your code must be composed of numbers only.", getBaseContext());
                 return false;
             }
 
@@ -176,15 +176,6 @@ public class Variation2 extends AppCompatActivity {
         }
 
         return correctPass;
-    }
-
-    /**
-     * convenience method for displaying Toast
-     * @param message
-     */
-    private void showMessage(String message) {
-        Toast msg = Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG);
-        msg.show();
     }
 
     @Override

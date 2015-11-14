@@ -68,13 +68,13 @@ public class Variation1 extends AppCompatActivity {
     private boolean validatePhrase(String s) {
 
         if(s == null || s.equals("")) {
-            showMessage("Your phrase must not be null or empty string.");
+            Utilities.showMessage("Your phrase must not be null or empty string.", getBaseContext());
             return false;
         } else {
             List<String> words = Arrays.asList(s.split(" "));
 
             if(words.size() < 4 || words.size() > 6) {
-                showMessage("Your phrase must be composed of 4 to 6 words.");
+                Utilities.showMessage("Your phrase must be composed of 4 to 6 words.", getBaseContext());
                 return false;
             }
 
@@ -112,7 +112,7 @@ public class Variation1 extends AppCompatActivity {
 
         String correctPass = "";
 
-        for(int i = 0; i < words.size(); i++) {
+        for (int i = 0; i < words.size(); i++) {
             String ind = "" + randCode.charAt(i);
             int index = Integer.parseInt(ind);
             correctPass += words.get(i).charAt(index - 1); //subtracted 1 because string's index starts from zero
@@ -120,16 +120,6 @@ public class Variation1 extends AppCompatActivity {
 
         return correctPass;
     }
-
-    /**
-     * convenience method for displaying Toast
-     * @param message
-     */
-    private void showMessage(String message) {
-        Toast msg = Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG);
-        msg.show();
-    }
-
 
 
     @Override
