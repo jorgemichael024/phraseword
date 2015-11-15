@@ -73,17 +73,17 @@ public class Variation4 extends AppCompatActivity {
     private boolean validateCharChode(String s) {
 
         if(s == null || s.equals("")) {
-            showMessage("Your character code must not be null or empty string.");
+            Utilities.showMessage("Your character code must not be null or empty string.", getBaseContext());
             return false;
         } else {
             if(s.length() < 4 || s.length() > 6) {
-                showMessage("Your character code must be composed of 4 to 6 digits.");
+                Utilities.showMessage("Your character code must be composed of 4 to 6 digits.", getBaseContext());
                 return false;
             }
 
 
             if(s.matches("[-+]?\\d*\\.?\\d+")) {
-                showMessage("Your character must be composed of letters only.");
+                Utilities.showMessage("Your character must be composed of letters only.", getBaseContext());
                 return false;
             }
 
@@ -169,16 +169,6 @@ public class Variation4 extends AppCompatActivity {
 
         return sb.toString();
     }
-
-    /**
-     * convenience method for displaying Toast
-     * @param message
-     */
-    private void showMessage(String message) {
-        Toast msg = Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG);
-        msg.show();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

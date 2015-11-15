@@ -1,6 +1,9 @@
 package org.mjjm.phraseword;
 
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.Random;
 
 public class Utilities {
@@ -16,4 +19,14 @@ public class Utilities {
 
         return r.nextInt(max - min) + min + 1;
     }
+
+    /**
+     * convenience method for displaying Toast
+     * @param message
+     */
+    public static void showMessage(String message, Context context) {
+        Toast msg = Toast.makeText(context, message, Toast.LENGTH_LONG);
+        msg.show();
+    }
+
 }
