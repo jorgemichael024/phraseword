@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.mjjm.phraseword.MainActivity;
@@ -30,9 +31,10 @@ public class Variation2 extends AppCompatActivity {
     public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation2.PASS";
 
     private EditText editNumcode;
-    private Button testBtn;
     private Context context;
     private String[] wordArr;
+
+    private TextView textProceed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,12 @@ public class Variation2 extends AppCompatActivity {
 
         context = this.getApplicationContext();
         editNumcode = (EditText) findViewById(R.id.editNumCode);
-        testBtn = (Button) findViewById(R.id.testBtn);
 
         wordArr = initWords("wordlist.txt");
 
-        testBtn.setOnClickListener(new View.OnClickListener() {
+        textProceed = (TextView) findViewById(R.id.textProceed);
+
+        textProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, VariationTwoTestScreenActivity.class);
@@ -115,6 +118,8 @@ public class Variation2 extends AppCompatActivity {
         int MIN = 0;
         int MAX = words.length;
 
+        StringBuilder sb = new StringBuilder();
+
         if(MAX > 0) {
 
             for(int i = 0; i < numOfWords; i++) {
@@ -166,6 +171,7 @@ public class Variation2 extends AppCompatActivity {
      * @return string
      */
     private String generateCorrectPass(List<String> words, String inputCode) {
+/*
 
         String correctPass = "";
 
@@ -174,8 +180,21 @@ public class Variation2 extends AppCompatActivity {
             int index = Integer.parseInt(ind);
             correctPass += words.get(i).charAt(index - 1); //subtracted 1 because string's index starts from zero
         }
+*/
 
-        return correctPass;
+        StringBuilder sb = new StringBuilder();
+
+        int j = 0;
+        for(String word : words) {
+            String ind = "" + inputCode.charAt(j);
+            int index = Integer.parseInt(ind);
+
+            sb.append(word.charAt(index - 1));
+            j++;
+        }
+
+        return sb.toString();
+        //return correctPass;
     }
 
     @Override

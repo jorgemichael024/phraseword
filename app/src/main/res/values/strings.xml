@@ -4,7 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_variation1">Variation One Input Screen</string>
-    <string name="title_activity_unlocked_screen">UnlockedScreenActivity</string>
+    <string name="title_activity_unlocked_screen">Unlocked Screen</string>
     <string name="title_activity_variation_one_test_screen">Variation One Test Screen</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_variation2">Variation Two Input Screen</string>
@@ -14,4 +14,5 @@
     <string name="title_activity_variation4">Variation Four Input Screen</string>
     <string name="title_activity_variation_four_test_screen">Variation Four Test Screen
     </string>
+    <string name="title_activity_test_form">TestFormActivity</string>
 </resources>

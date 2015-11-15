@@ -2,16 +2,20 @@ package org.mjjm.phraseword.variation3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.mjjm.phraseword.CustomTimer;
 import org.mjjm.phraseword.R;
 import org.mjjm.phraseword.UnlockedScreenActivity;
 import org.mjjm.phraseword.variation2.Variation2;
@@ -21,11 +25,15 @@ import java.util.List;
 
 public class VariationThreeTestScreen extends AppCompatActivity {
 
+    public final static String EXTRA_MESSAGE_TIME_ARR = "TIME_ARR";
+
     private EditText editPhraseCode;
     private TextView textRandChars;
     private Context context;
-    private Button unlockBtn;
     private Intent intent;
+
+    private CustomTimer customTimer;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +46,42 @@ public class VariationThreeTestScreen extends AppCompatActivity {
         editPhraseCode = (EditText) findViewById(R.id.editPhraseCode);
         textRandChars = (TextView) findViewById(R.id.textRandChars);
         textRandChars.setText(intent.getStringExtra(Variation3.EXTRA_MESSAGE_CHARS));
-        unlockBtn = (Button) findViewById(R.id.unlockBtn);
 
-        unlockBtn.setOnClickListener(new View.OnClickListener() {
+
+        editPhraseCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View v) {
-                if (validatePasscode(editPhraseCode.getText().toString())) {
-                    Intent intent = new Intent(context, UnlockedScreenActivity.class);
-                    startActivity(intent);
-                } else {
-                    showMessage("Incorrect phrase code.");
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    if (validatePasscode(editPhraseCode.getText().toString())) {
+                        customTimer.pauseTimer();
+                        Intent intent = new Intent(context, UnlockedScreenActivity.class);
+
+                        intent.putExtra(EXTRA_MESSAGE_TIME_ARR, new int[]{customTimer.getMinutes(), customTimer.getSeconds(), customTimer.getMillis()});
+
+                        startActivity(intent);
+                    } else {
+                        editPhraseCode.setText("");
+                    }
+
+                    return true;
                 }
+
+                return false;
             }
         });
+
+        handler = new Handler();
+        customTimer = new CustomTimer(handler);
+
+        customTimer.startTimer();
 
     }
 
     private boolean validatePasscode(String s) {
 
-        if(s != null) {
+        if(s != null && s.contains(" ") && !s.contains("  ")) {
+
             String code = intent.getStringExtra(Variation3.EXTRA_MESSAGE_CODE);
             String phraseCode = intent.getStringExtra(Variation3.EXTRA_MESSAGE_CHARS);
             List<String> words = Arrays.asList(s.split(" "));

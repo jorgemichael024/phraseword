@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.mjjm.phraseword.R;
@@ -28,7 +29,7 @@ public class Variation4 extends AppCompatActivity {
     public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation4.PASS";
 
     private EditText editCharCode;
-    private Button testBtn;
+    private TextView textProceed;
     private Context context;
     private String[] wordArr;
 
@@ -39,11 +40,10 @@ public class Variation4 extends AppCompatActivity {
 
         context = this.getApplicationContext();
         editCharCode = (EditText) findViewById(R.id.editCharCode);
-        testBtn = (Button) findViewById(R.id.testBtn);
 
         wordArr = initWords("wordlist.txt");
-
-        testBtn.setOnClickListener(new View.OnClickListener() {
+        textProceed = (TextView) findViewById(R.id.textProceed);
+        textProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, VariationFourTestScreenActivity.class);
@@ -77,13 +77,13 @@ public class Variation4 extends AppCompatActivity {
             return false;
         } else {
             if(s.length() < 4 || s.length() > 6) {
-                Utilities.showMessage("Your character code must be composed of 4 to 6 digits.", getBaseContext());
+                Utilities.showMessage("Your character code must be composed of 4 to 6 characters.", getBaseContext());
                 return false;
             }
 
 
             if(s.matches("[-+]?\\d*\\.?\\d+")) {
-                Utilities.showMessage("Your character must be composed of letters only.", getBaseContext());
+                Utilities.showMessage("Your character code must be composed of letters only.", getBaseContext());
                 return false;
             }
 

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.mjjm.phraseword.R;
@@ -24,8 +25,9 @@ public class Variation3 extends AppCompatActivity {
     public final static String EXTRA_MESSAGE_CODE = "org.mjjm.phraseword.variation3.CODE";
 
     private EditText editNumcode;
-    private Button testBtn;
     private Context context;
+
+    private TextView textProceed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,10 @@ public class Variation3 extends AppCompatActivity {
 
         context = this.getApplicationContext();
         editNumcode = (EditText) findViewById(R.id.editNumCode);
-        testBtn = (Button) findViewById(R.id.testBtn);
 
-        testBtn.setOnClickListener(new View.OnClickListener() {
+        textProceed = (TextView) findViewById(R.id.textProceed);
+
+        textProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, VariationThreeTestScreen.class);

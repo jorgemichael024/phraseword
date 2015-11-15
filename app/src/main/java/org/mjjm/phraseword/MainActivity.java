@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.mjjm.phraseword.variation1.Variation1;
 import org.mjjm.phraseword.variation2.Variation2;
@@ -22,9 +23,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button var1_button, var2_button, var3_button, var4_button;
     private Context context;
 
+    private TextView startText, aboutText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,44 +34,25 @@ public class MainActivity extends AppCompatActivity {
 
         context = this.getApplicationContext();
 
-        var1_button = (Button) findViewById(R.id.var1_button);
-        var1_button.setOnClickListener(onClickListener);
-        var2_button = (Button) findViewById(R.id.var2_button);
-        var2_button.setOnClickListener(onClickListener);
-        var3_button = (Button) findViewById(R.id.var3_button);
-        var3_button.setOnClickListener(onClickListener);
-        var4_button = (Button) findViewById(R.id.var4_button);
-        var4_button.setOnClickListener(onClickListener);
+        startText = (TextView) findViewById(R.id.startText);
 
-    }
-
-    public View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            switch (v.getId()) {
-                case R.id.var1_button:
-                    goToScreen(Variation1.class);
-                    break;
-                case R.id.var2_button:
-                    goToScreen(Variation2.class);
-                    break;
-                case R.id.var3_button:
-                    goToScreen(Variation3.class);
-                    break;
-                case R.id.var4_button:
-                    goToScreen(Variation4.class);
-                    break;
+        startText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TestFormActivity.class);
+                startActivity(intent);
             }
-        }
-    };
+        });
 
-    public void goToScreen(Class<?> clazz) {
-        Intent intent = new Intent(context, clazz);
+        aboutText = (TextView) findViewById(R.id.aboutText);
+        aboutText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utilities.showMessage("You touched 'ABOUT' link.", getBaseContext());
+            }
+        });
 
-        startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

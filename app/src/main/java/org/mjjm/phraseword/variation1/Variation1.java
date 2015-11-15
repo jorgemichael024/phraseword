@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Slide;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.mjjm.phraseword.R;
@@ -26,7 +29,7 @@ public class Variation1 extends AppCompatActivity {
     public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation1.PASS";
 
     private EditText editPhrase;
-    private Button testBtn;
+    private TextView textProceed;
     private Context context;
 
     @Override
@@ -36,10 +39,10 @@ public class Variation1 extends AppCompatActivity {
 
         context = this.getApplicationContext();
         editPhrase = (EditText) findViewById(R.id.editPhrase);
-        testBtn = (Button) findViewById(R.id.testBtn);
 
+        textProceed = (TextView) findViewById(R.id.textProceed);
 
-        testBtn.setOnClickListener(new View.OnClickListener() {
+        textProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, VariationOneTestScreenActivity.class);
@@ -53,6 +56,7 @@ public class Variation1 extends AppCompatActivity {
 
                     intent.putExtra(EXTRA_MESSAGE_CODE, randCode);
                     intent.putExtra(EXTRA_MESSAGE_PASS, correctPass);
+
                     startActivity(intent);
                 }
             }
@@ -70,12 +74,20 @@ public class Variation1 extends AppCompatActivity {
         if(s == null || s.equals("")) {
             Utilities.showMessage("Your phrase must not be null or empty string.", getBaseContext());
             return false;
-        } else {
+        }
+        else {
             List<String> words = Arrays.asList(s.split(" "));
 
             if(words.size() < 4 || words.size() > 6) {
                 Utilities.showMessage("Your phrase must be composed of 4 to 6 words.", getBaseContext());
                 return false;
+            }
+
+            for(String word : words) {
+                if(word.equals("")) {
+                    Utilities.showMessage("You had entered multiple spaces between words.", getBaseContext());
+                    return false;
+                }
             }
 
         }
@@ -90,16 +102,24 @@ public class Variation1 extends AppCompatActivity {
      */
     private String generateRandomCode(List<String> words) {
 
-        String code = "";
+        StringBuilder sb = new StringBuilder();
+
         int MIN = 0;
-        for(int i = 0; i  < words.size(); i++) {
+/*        for(int i = 0; i  < words.size(); i++) {
             int MAX = words.get(i).length();
 
             int random = Utilities.generateRandomInt(MIN, MAX);
             code += random;
+        }*/
+
+        for(String word : words) {
+            int MAX = word.length();
+            int random = Utilities.generateRandomInt(MIN, MAX);
+            sb.append(random);
+
         }
 
-        return code;
+        return sb.toString();
     }
 
     /**
@@ -110,6 +130,7 @@ public class Variation1 extends AppCompatActivity {
      */
     private String generateCorrectPass(List<String> words, String randCode) {
 
+/*
         String correctPass = "";
 
         for (int i = 0; i < words.size(); i++) {
@@ -117,8 +138,21 @@ public class Variation1 extends AppCompatActivity {
             int index = Integer.parseInt(ind);
             correctPass += words.get(i).charAt(index - 1); //subtracted 1 because string's index starts from zero
         }
+*/
 
-        return correctPass;
+        StringBuilder sb = new StringBuilder();
+
+        int j = 0;
+        for(String word : words) {
+
+            String ind = "" + randCode.charAt(j);
+            int index = Integer.parseInt(ind);
+            sb.append(word.charAt(index -1));
+            j++;
+        }
+
+        return sb.toString();
+        //return correctPass;
     }
 
 
@@ -142,5 +176,10 @@ public class Variation1 extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 }

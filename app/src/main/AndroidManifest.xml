@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -19,19 +19,19 @@
         <!-- VARIATION ONE -->
         <activity
             android:name=".variation1.Variation1"
-            android:label="@string/title_activity_variation1"
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_variation1" >
+
+            <!--
+                android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.mjjm.phraseword.MainActivity" />
+            -->
         </activity>
         <activity
             android:name=".variation1.VariationOneTestScreenActivity"
             android:label="@string/title_activity_variation_one_test_screen"
-            android:parentActivityName=".variation1.Variation1" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.mjjm.phraseword.variation1.Variation1" />
+            android:windowSoftInputMode="stateAlwaysVisible">
         </activity>
         <!-- VARIATION TWO -->
         <activity
@@ -45,10 +45,7 @@
         <activity
             android:name=".variation2.VariationTwoTestScreenActivity"
             android:label="@string/title_activity_variation_two_test_screen"
-            android:parentActivityName=".variation2.Variation2" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.mjjm.phraseword.variation2.Variation2" />
+            android:windowSoftInputMode="stateAlwaysVisible">
         </activity>
         <!-- VARIATION THREE -->
         <activity
@@ -62,10 +59,7 @@
         <activity
             android:name=".variation3.VariationThreeTestScreen"
             android:label="@string/title_activity_variation_three_test_screen"
-            android:parentActivityName=".variation3.Variation3" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.mjjm.phraseword.variation3.Variation3" />
+            android:windowSoftInputMode="stateAlwaysVisible">
         </activity>
         <!-- VARIATION FOUR -->
         <activity
@@ -79,10 +73,8 @@
         <activity
             android:name=".variation4.VariationFourTestScreenActivity"
             android:label="@string/title_activity_variation_four_test_screen"
-            android:parentActivityName=".variation4.Variation4" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.mjjm.phraseword.variation4.Variation4" />
+            android:parentActivityName=".variation4.Variation4"
+            android:windowSoftInputMode="stateAlwaysVisible">
         </activity>
         <!-- UNLOCKED SCREEN -->
         <activity
@@ -93,7 +85,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
+        <!-- TEST FORM -->
+        <activity
+            android:name=".TestFormActivity"
+            android:label="@string/title_activity_test_form" >
+        </activity>
     </application>
 
 </manifest>
