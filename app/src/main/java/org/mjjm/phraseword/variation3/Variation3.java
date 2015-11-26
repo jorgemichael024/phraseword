@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.mjjm.phraseword.LockScreenActivity;
 import org.mjjm.phraseword.R;
 import org.mjjm.phraseword.Utilities;
 import org.mjjm.phraseword.variation2.VariationTwoTestScreenActivity;
@@ -21,6 +22,7 @@ import java.util.List;
 
 public class Variation3 extends AppCompatActivity {
 
+    public final static String EXTRA_MESSAGE_VAR = "org.mjjm.phraseword.variation1.VAR";
     public final static String EXTRA_MESSAGE_CHARS = "org.mjjm.phraseword.variation3.CHARS";
     public final static String EXTRA_MESSAGE_CODE = "org.mjjm.phraseword.variation3.CODE";
 
@@ -42,8 +44,9 @@ public class Variation3 extends AppCompatActivity {
         textProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, VariationThreeTestScreen.class);
+                //Intent intent = new Intent(context, VariationThreeTestScreen.class);
 
+                Intent intent = new Intent(context, LockScreenActivity.class);
                 String numCode = editNumcode.getText().toString();
                 if (validateNumCode(numCode)) {
 
@@ -52,7 +55,7 @@ public class Variation3 extends AppCompatActivity {
                     if (randChars.equals("")) {
                         Utilities.showMessage("Cannot generate random characters. Please try again.", getBaseContext());
                     } else {
-
+                        intent.putExtra(EXTRA_MESSAGE_VAR, 3);
                         intent.putExtra(EXTRA_MESSAGE_CHARS, randChars);
                         intent.putExtra(EXTRA_MESSAGE_CODE, numCode);
                         startActivity(intent);
@@ -130,4 +133,5 @@ public class Variation3 extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

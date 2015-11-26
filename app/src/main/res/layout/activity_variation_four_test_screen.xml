@@ -26,6 +26,7 @@
         android:layout_height="50dp"
         android:id="@+id/editPasscode"
         android:hint="Enter passcode"
+        android:digits="123456789"
         android:textColorHint="@android:color/white"
         android:padding="5dp"
         android:singleLine="true"

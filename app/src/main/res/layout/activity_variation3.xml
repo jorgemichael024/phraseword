@@ -35,6 +35,7 @@
         android:id="@+id/editNumCode"
         android:hint="Enter your number code"
         android:inputType="number"
+        android:digits="123456789"
         android:textColorHint="@android:color/white"
         android:singleLine="true"
         android:lines="1"

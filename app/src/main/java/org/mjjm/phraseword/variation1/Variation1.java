@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.mjjm.phraseword.LockScreenActivity;
 import org.mjjm.phraseword.R;
 import org.mjjm.phraseword.UnlockedScreenActivity;
 import org.mjjm.phraseword.Utilities;
@@ -25,8 +26,10 @@ import java.util.List;
 
 public class Variation1 extends AppCompatActivity {
 
+    public final static String EXTRA_MESSAGE_VAR = "org.mjjm.phraseword.variation1.VAR";
     public final static String EXTRA_MESSAGE_CODE = "org.mjjm.phraseword.variation1.CODE";
     public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation1.PASS";
+    public final static String EXTRA_MESSAGE_PHRASE = "org.mjjm.phraseword.variation1.PHRASE";
 
     private EditText editPhrase;
     private TextView textProceed;
@@ -45,18 +48,19 @@ public class Variation1 extends AppCompatActivity {
         textProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, VariationOneTestScreenActivity.class);
-
+                //Intent intent = new Intent(context, VariationOneTestScreenActivity.class);
+                Intent intent = new Intent(context, LockScreenActivity.class);
                 String phrase = editPhrase.getText().toString();
-                if(validatePhrase(phrase)) {
+                if (validatePhrase(phrase)) {
                     List<String> words = Arrays.asList(phrase.split(" "));
 
-                    String randCode = generateRandomCode(words);
-                    String correctPass = generateCorrectPass(words, randCode);
+                    //String randCode = generateRandomCode(words);
+                    //String correctPass = generateCorrectPass(words, randCode);
 
-                    intent.putExtra(EXTRA_MESSAGE_CODE, randCode);
-                    intent.putExtra(EXTRA_MESSAGE_PASS, correctPass);
-
+                    intent.putExtra(EXTRA_MESSAGE_VAR, 1);
+                    //intent.putExtra(EXTRA_MESSAGE_CODE, randCode);
+                    //intent.putExtra(EXTRA_MESSAGE_PASS, correctPass);
+                    intent.putExtra(EXTRA_MESSAGE_PHRASE, phrase);
                     startActivity(intent);
                 }
             }
@@ -100,7 +104,7 @@ public class Variation1 extends AppCompatActivity {
      * @param words
      * @return string
      */
-    private String generateRandomCode(List<String> words) {
+    public static String generateRandomCode(List<String> words) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -128,7 +132,7 @@ public class Variation1 extends AppCompatActivity {
      * @param randCode
      * @return string
      */
-    private String generateCorrectPass(List<String> words, String randCode) {
+    public static String generateCorrectPass(List<String> words, String randCode) {
 
 /*
         String correctPass = "";
@@ -178,8 +182,8 @@ public class Variation1 extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+/*    @Override
     public void onBackPressed() {
         //super.onBackPressed();
-    }
+    }*/
 }

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.mjjm.phraseword.LockScreenActivity;
 import org.mjjm.phraseword.MainActivity;
 import org.mjjm.phraseword.R;
 import org.mjjm.phraseword.Utilities;
@@ -27,6 +28,7 @@ import java.util.List;
 public class Variation2 extends AppCompatActivity {
 
 
+    public final static String EXTRA_MESSAGE_VAR = "org.mjjm.phraseword.variation1.VAR";
     public final static String EXTRA_MESSAGE_WORDS = "org.mjjm.phraseword.variation2.WORDS";
     public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation2.PASS";
 
@@ -51,7 +53,9 @@ public class Variation2 extends AppCompatActivity {
         textProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, VariationTwoTestScreenActivity.class);
+                //Intent intent = new Intent(context, VariationTwoTestScreenActivity.class);
+
+                Intent intent = new Intent(context, LockScreenActivity.class);
 
                 String numCode = editNumcode.getText().toString();
                 if(validateNumCode(numCode)) {
@@ -66,6 +70,7 @@ public class Variation2 extends AppCompatActivity {
 
                         String correctPass = generateCorrectPass(words, numCode);
 
+                        intent.putExtra(EXTRA_MESSAGE_VAR, 2);
                         intent.putExtra(EXTRA_MESSAGE_WORDS, randWords);
                         intent.putExtra(EXTRA_MESSAGE_PASS, correctPass);
                         startActivity(intent);
@@ -218,4 +223,5 @@ public class Variation2 extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.mjjm.phraseword.variation1.VariationOneTestScreenActivity;
@@ -16,10 +17,15 @@ import org.mjjm.phraseword.variation1.VariationOneTestScreenActivity;
 public class UnlockedScreenActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE_TIME_ARR = "TIME_ARR";
+    public final static String EXTRA_MESSAGE_COUNT = "COUNT";
+    public final static String EXTRA_MESSAGE_ACCUM = "ACCUM";
     private Intent intent;
     private Context context;
 
-    private TextView timeText, mainMenu;
+    private LinearLayout unlockScreen1, unlockScreen2;
+
+    private TextView timeText, mainMenu, lockAndProceed, testCountText, averageTimeText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,13 @@ public class UnlockedScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_unlocked_screen);
         intent = getIntent();
         context = this.getApplicationContext();
+
+        int count = intent.getIntExtra(EXTRA_MESSAGE_COUNT, 0);
+        count++;
+        intent.putExtra(EXTRA_MESSAGE_COUNT, count);
+
+
+
         int[] timeArr = intent.getIntArrayExtra(EXTRA_MESSAGE_TIME_ARR);
 
         int minutes = timeArr[0];
@@ -35,6 +48,14 @@ public class UnlockedScreenActivity extends AppCompatActivity {
 
         timeText = (TextView) findViewById(R.id.timeText);
         timeText.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", millis));
+
+
+        int accum = intent.getIntExtra(EXTRA_MESSAGE_ACCUM, 0);
+        accum += seconds;
+        intent.putExtra(EXTRA_MESSAGE_ACCUM, accum);
+
+        testCountText = (TextView) findViewById(R.id.testCountText);
+        testCountText.setText(count + " of 5 \nTEST COMPLETED");
 
         mainMenu = (TextView) findViewById(R.id.mainMenu);
         mainMenu.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +67,37 @@ public class UnlockedScreenActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        lockAndProceed = (TextView) findViewById(R.id.lockAndProceed);
+        lockAndProceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(intent.getIntExtra(EXTRA_MESSAGE_COUNT, 0) < 5) {
+                    intent.setClass(context, LockScreenActivity.class);
+                    startActivity(intent);
+                } else {
+                    unlockScreen2.setVisibility(View.GONE);
+                    unlockScreen1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
+        unlockScreen1 = (LinearLayout) findViewById(R.id.unlockScreen1);
+        unlockScreen2 = (LinearLayout) findViewById(R.id.unlockScreen2);
+        unlockScreen1.setVisibility(View.GONE);
+        unlockScreen2.setVisibility(View.VISIBLE);
+
+        averageTimeText = (TextView) findViewById(R.id.averageTimeText);
+
+        if(intent.getIntExtra(EXTRA_MESSAGE_COUNT, 0) == 5) {
+            lockAndProceed.setText("Proceed to Result");
+
+            int average = accum / 5;
+            averageTimeText.setText(average + "");
+
+        }
     }
 
     @Override

@@ -7,6 +7,44 @@
     android:background="@color/teal"
     android:orientation="vertical"
     tools:context="org.mjjm.phraseword.UnlockedScreenActivity">
+
+    <LinearLayout
+        android:id="@+id/unlockScreen1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="AVERAGE TIME SPENT IN SECONDS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="30dp"
+            android:textColor="@android:color/white"
+            />
+
+        <TextView
+            android:id="@+id/averageTimeText"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:textSize="60dp"
+            android:text="0000"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/mainMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:text="Back to Main Menu"
+            android:padding="20dp"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
 <!--
     <ImageView
         android:id="@+id/wallpaperIV"
@@ -14,37 +52,52 @@
         android:layout_width="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/unlockedwallpaper"/>-->
-
-    <TextView
-        android:text="TIME SPENT"
+    <LinearLayout
+        android:id="@+id/unlockScreen2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="30dp"
-        android:textColor="@android:color/white"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/timeText"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:textSize="60dp"
-        android:text="00:00:00"
-        android:layout_weight="1"
-        android:textColor="@android:color/white"/>
+        <TextView
+            android:text="TIME SPENT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="30dp"
+            android:textColor="@android:color/white"
+            />
 
-    <TextView
-        android:id="@+id/mainMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:text="Back to Main Menu"
-        android:padding="20dp"
-        android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="60dp"
+            android:text="00:00:00"
+            android:textColor="@android:color/white"/>
 
-    
+        <TextView
+            android:id="@+id/testCountText"
+            android:text="0 of 5 \nTEST COMPLETED"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            />
+
+        <TextView
+            android:id="@+id/lockAndProceed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:text="Lock and Continue"
+            android:padding="20dp"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
 </LinearLayout>

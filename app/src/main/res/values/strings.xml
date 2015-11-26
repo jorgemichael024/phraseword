@@ -15,4 +15,5 @@
     <string name="title_activity_variation_four_test_screen">Variation Four Test Screen
     </string>
     <string name="title_activity_test_form">TestFormActivity</string>
+    <string name="title_activity_lock_screen">LockScreenActivity</string>
 </resources>
