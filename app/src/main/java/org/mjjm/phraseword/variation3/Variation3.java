@@ -50,7 +50,7 @@ public class Variation3 extends AppCompatActivity {
                 String numCode = editNumcode.getText().toString();
                 if (validateNumCode(numCode)) {
 
-                    String randChars = generateRandomChars(numCode.length());
+/*                    String randChars = generateRandomChars(numCode.length());
 
                     if (randChars.equals("")) {
                         Utilities.showMessage("Cannot generate random characters. Please try again.", getBaseContext());
@@ -59,8 +59,10 @@ public class Variation3 extends AppCompatActivity {
                         intent.putExtra(EXTRA_MESSAGE_CHARS, randChars);
                         intent.putExtra(EXTRA_MESSAGE_CODE, numCode);
                         startActivity(intent);
-                    }
-
+                    }*/
+                    intent.putExtra(EXTRA_MESSAGE_VAR, 3);
+                    intent.putExtra(EXTRA_MESSAGE_CODE, numCode);
+                    startActivity(intent);
                 }
             }
         });
@@ -94,7 +96,7 @@ public class Variation3 extends AppCompatActivity {
         return true;
     }
 
-    private String generateRandomChars(int length) {
+    public static String generateRandomChars(int length) {
 
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder s = new StringBuilder();

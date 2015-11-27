@@ -29,12 +29,11 @@ public class Variation4 extends AppCompatActivity {
     public final static String EXTRA_MESSAGE_VAR = "org.mjjm.phraseword.variation1.VAR";
     public final static String EXTRA_MESSAGE_PHRASE = "org.mjjm.phraseword.variation4.PHRASE";
     public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation4.PASS";
+    public final static String EXTRA_MESSAGE_CHARCODE = "org.mjjm.phraseword.variation4.CHARCODE ";
 
     private EditText editCharCode;
     private TextView textProceed;
     private Context context;
-    private String[] wordArr;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +42,6 @@ public class Variation4 extends AppCompatActivity {
         context = this.getApplicationContext();
         editCharCode = (EditText) findViewById(R.id.editCharCode);
 
-        wordArr = initWords("wordlist.txt");
         textProceed = (TextView) findViewById(R.id.textProceed);
         textProceed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +52,7 @@ public class Variation4 extends AppCompatActivity {
                 String charCode = editCharCode.getText().toString();
                 if (validateCharChode(charCode)) {
 
+/*
                     String correctPass = generateCorrectPass(charCode.length());
 
                     String phrase = buildWords(wordArr, correctPass, charCode);
@@ -62,7 +61,10 @@ public class Variation4 extends AppCompatActivity {
                     intent.putExtra(EXTRA_MESSAGE_PHRASE, phrase);
                     intent.putExtra(EXTRA_MESSAGE_PASS, correctPass);
                     startActivity(intent);
-
+*/
+                    intent.putExtra(EXTRA_MESSAGE_VAR, 4);
+                    intent.putExtra(EXTRA_MESSAGE_CHARCODE, charCode);
+                    startActivity(intent);
                 }
             }
         });
@@ -96,7 +98,7 @@ public class Variation4 extends AppCompatActivity {
         return true;
     }
 
-    private String buildWords(String[] words, String correctPass, String charCode) {
+    public static String buildWords(String[] words, String correctPass, String charCode) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -126,7 +128,7 @@ public class Variation4 extends AppCompatActivity {
         return sb.toString();
     }
 
-    private int countOccurrence(String s, String c) {
+    private static int countOccurrence(String s, String c) {
 
         return (s.length() - s.replace(c, "").length());
     }
@@ -160,7 +162,7 @@ public class Variation4 extends AppCompatActivity {
         return sb.toString().split("#");
     }
 
-    private String generateCorrectPass(int length) {
+    public static String generateCorrectPass(int length) {
 
         StringBuilder sb = new StringBuilder();
         int MIN = 0;

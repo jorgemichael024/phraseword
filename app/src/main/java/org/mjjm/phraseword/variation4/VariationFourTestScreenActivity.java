@@ -54,8 +54,8 @@ public class VariationFourTestScreenActivity extends AppCompatActivity {
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     if (validatePasscode(editPasscode.getText().toString())) {
                         customTimer.pauseTimer();
-                        Intent intent = new Intent(context, UnlockedScreenActivity.class);
-
+                        //Intent intent = new Intent(context, UnlockedScreenActivity.class);
+                        intent.setClass(context, UnlockedScreenActivity.class);
                         intent.putExtra(EXTRA_MESSAGE_TIME_ARR, new int[] {customTimer.getMinutes(), customTimer.getSeconds(), customTimer.getMillis()});
 
                         startActivity(intent);

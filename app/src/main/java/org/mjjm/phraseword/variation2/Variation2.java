@@ -31,10 +31,10 @@ public class Variation2 extends AppCompatActivity {
     public final static String EXTRA_MESSAGE_VAR = "org.mjjm.phraseword.variation1.VAR";
     public final static String EXTRA_MESSAGE_WORDS = "org.mjjm.phraseword.variation2.WORDS";
     public final static String EXTRA_MESSAGE_PASS = "org.mjjm.phraseword.variation2.PASS";
+    public final static String EXTRA_MESSAGE_NUMCODE = "org.mjjm.phraseword.variation2.NUMCODE";
 
     private EditText editNumcode;
     private Context context;
-    private String[] wordArr;
 
     private TextView textProceed;
 
@@ -46,7 +46,6 @@ public class Variation2 extends AppCompatActivity {
         context = this.getApplicationContext();
         editNumcode = (EditText) findViewById(R.id.editNumCode);
 
-        wordArr = initWords("wordlist.txt");
 
         textProceed = (TextView) findViewById(R.id.textProceed);
 
@@ -60,7 +59,7 @@ public class Variation2 extends AppCompatActivity {
                 String numCode = editNumcode.getText().toString();
                 if(validateNumCode(numCode)) {
 
-                    String randWords = buildWords(numCode.length(), wordArr);
+/*                    String randWords = buildWords(numCode.length(), wordArr);
 
                     if(randWords.equals("")) {
                         Utilities.showMessage("Cannot generate random words. Please try again.", getBaseContext());
@@ -74,7 +73,11 @@ public class Variation2 extends AppCompatActivity {
                         intent.putExtra(EXTRA_MESSAGE_WORDS, randWords);
                         intent.putExtra(EXTRA_MESSAGE_PASS, correctPass);
                         startActivity(intent);
-                    }
+                    }*/
+
+                    intent.putExtra(EXTRA_MESSAGE_VAR, 2);
+                    intent.putExtra(EXTRA_MESSAGE_NUMCODE, numCode);
+                    startActivity(intent);
 
                 }
             }
@@ -116,7 +119,7 @@ public class Variation2 extends AppCompatActivity {
      * @param numOfWords
      * @return
      */
-    private String buildWords(int numOfWords, String[] words) {
+    public static String buildWords(int numOfWords, String[] words) {
 
         String randWords = "";
 
@@ -141,7 +144,7 @@ public class Variation2 extends AppCompatActivity {
     }
 
 
-    public String[] initWords(String file) {
+    /*public String[] initWords(String file) {
 
         BufferedReader reader = null;
         StringBuilder sb = new StringBuilder();
@@ -167,7 +170,7 @@ public class Variation2 extends AppCompatActivity {
         }
 
         return sb.toString().split("#");
-    }
+    }*/
 
     /**
      * generates the correct pass from list of words and the input code
@@ -175,7 +178,7 @@ public class Variation2 extends AppCompatActivity {
      * @param inputCode
      * @return string
      */
-    private String generateCorrectPass(List<String> words, String inputCode) {
+    public static String generateCorrectPass(List<String> words, String inputCode) {
 /*
 
         String correctPass = "";

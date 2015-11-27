@@ -9,10 +9,16 @@ import android.view.MenuItem;
 
 import org.mjjm.phraseword.variation1.Variation1;
 import org.mjjm.phraseword.variation1.VariationOneTestScreenActivity;
+import org.mjjm.phraseword.variation2.Variation2;
 import org.mjjm.phraseword.variation2.VariationTwoTestScreenActivity;
+import org.mjjm.phraseword.variation3.Variation3;
 import org.mjjm.phraseword.variation3.VariationThreeTestScreen;
+import org.mjjm.phraseword.variation4.Variation4;
 import org.mjjm.phraseword.variation4.VariationFourTestScreenActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +31,7 @@ public class LockScreenActivity extends AppCompatActivity {
     private int variation;
     private Intent intent;
     private Context context;
+    private String[] wordArr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,11 @@ public class LockScreenActivity extends AppCompatActivity {
         }
 
         variation = intent.getIntExtra(EXTRA_MESSAGE_VAR, 1);
+
+        if(variation == 2 || variation == 4) {
+
+            wordArr = initWords("wordlist.txt");
+        }
 
         ((SlideButton) findViewById(R.id.slideUnlockButton)).setSlideButtonListener(new SlideButton.SlideButtonListener() {
             @Override
@@ -57,12 +69,36 @@ public class LockScreenActivity extends AppCompatActivity {
                         break;
                     case 2:
                         intent.setClass(context, VariationTwoTestScreenActivity.class);
+
+                        String numCode = intent.getStringExtra(Variation2.EXTRA_MESSAGE_NUMCODE);
+                        String randWords = Variation2.buildWords(numCode.length(), wordArr);
+
+                        List<String> words2 = Arrays.asList(randWords.split(" "));
+
+                        String correctPass2 = Variation2.generateCorrectPass(words2, numCode);
+
+                        intent.putExtra(Variation2.EXTRA_MESSAGE_WORDS, randWords);
+                        intent.putExtra(Variation2.EXTRA_MESSAGE_PASS, correctPass2);
+
                         break;
                     case 3:
                         intent.setClass(context, VariationThreeTestScreen.class);
+                        String numCode3 = intent.getStringExtra(Variation3.EXTRA_MESSAGE_CODE);
+                        String randChars = Variation3.generateRandomChars(numCode3.length());
+                        intent.putExtra(Variation3.EXTRA_MESSAGE_CHARS, randChars);
+
                         break;
                     case 4:
                         intent.setClass(context, VariationFourTestScreenActivity.class);
+                        String charCode = intent.getStringExtra(Variation4.EXTRA_MESSAGE_CHARCODE);
+                        String correctPass4 = Variation4.generateCorrectPass(charCode.length());
+
+                        String phrase4 = Variation4.buildWords(wordArr, correctPass4, charCode);
+
+                        intent.putExtra(EXTRA_MESSAGE_VAR, 4);
+                        intent.putExtra(Variation4.EXTRA_MESSAGE_PHRASE, phrase4);
+                        intent.putExtra(Variation4.EXTRA_MESSAGE_PASS, correctPass4);
+
                         break;
                 }
 
@@ -97,5 +133,33 @@ public class LockScreenActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+    }
+
+    public String[] initWords(String file) {
+
+        BufferedReader reader = null;
+        StringBuilder sb = new StringBuilder();
+        //get all the lines from wordlist.txt
+        try {
+            reader = new BufferedReader(new InputStreamReader(getAssets().open(file)));
+            String line;
+            while((line = reader.readLine()) != null) {
+                sb.append(line);
+                sb.append("#");
+            }
+
+        } catch (IOException ioex) {
+            ioex.printStackTrace();
+        } finally {
+            if(reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return sb.toString().split("#");
     }
 }
